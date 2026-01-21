@@ -29,6 +29,8 @@
 import { ui } from "./ui.js";
 import { HomePage } from "../e2e/pages/HomePage";
 import { LoginModal } from "../e2e/pages/login.modal.js";
+import 'cypress-mochawesome-reporter/register';
+
 
 Cypress.Commands.add("login", (email, password) => {
   // создаём объекты страниц прямо внутри команды
