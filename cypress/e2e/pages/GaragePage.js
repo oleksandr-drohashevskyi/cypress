@@ -1,6 +1,6 @@
 class GaragePage {
   open() {
-    cy.contains("Garage").click(); // или по href
+    cy.contains("Garage").click();
   }
 
   openAddCarModal() {
@@ -37,9 +37,19 @@ class GaragePage {
     cy.get(".car").contains(model).should("exist");
   }
 
-  openCarExpenses() {
+  // Клик по "Add fuel expense" для конкретной машины
+  openCarExpensesByCar({ brand, model }) {
+    cy.get(".car")
+      .contains(brand)
+      .closest(".car")
+      .within(() => {
+        cy.contains("Add fuel expense").click();
+      });
+  }
 
-    cy.get('.car').first().contains('Add fuel expense').click();
+
+  openCarExpenses() {
+    cy.get(".car").first().contains("Add fuel expense").click();
   }
 }
 

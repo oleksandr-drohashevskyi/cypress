@@ -29,8 +29,7 @@
 import { ui } from "./ui.js";
 import { HomePage } from "../e2e/pages/HomePage";
 import { LoginModal } from "../e2e/pages/login.modal.js";
-import 'cypress-mochawesome-reporter/register';
-
+import "cypress-mochawesome-reporter/register";
 
 Cypress.Commands.add("login", (email, password) => {
   // создаём объекты страниц прямо внутри команды
@@ -65,5 +64,30 @@ Cypress.Commands.overwrite(
     }
 
     return originalFn(element, text, options);
-  }
+  },
+);
+Cypress.Commands.add("apiGetCars", () => {
+  return cy.request({
+    method: "GET",
+    url: "/api/cars",
+    auth: { username: "guest", password: "welcome2qauto" },
+  });
+});
+
+Cypress.Commands.add(
+  "apiCreateExpense",
+  ({ carId, reportedAt, mileage, liters, totalCost }) => {
+    return cy.request({
+      method: "POST",
+      url: "/api/expenses",
+      auth: { username: "guest", password: "welcome2qauto" },
+      body: {
+        carId,
+        reportedAt,
+        mileage,
+        liters,
+        totalCost,
+      },
+    });
+  },
 );
